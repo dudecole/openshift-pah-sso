@@ -28,11 +28,11 @@ This document outlines the process to configure RH-SSO and integrate it with PAH
 
 . Navigate to the menu:Operators[Operator Hub]
 +
-image::operator_hub.png[]
+image::images/operator_hub.png[]
 
 . Search for the Red Hat Single Sign-On Operator and click on the Operator tile
 +
-image::rh-sso/find_operator.png[]
+image::images/rh-sso/find_operator.png[]
 
 . Click btn:[Install]
 +
