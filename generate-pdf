@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+IMAGE=quay.io/redhat-cop/ubi8-asciidoctor:v1.10
+
+TOP_LEVEL=$(git rev-parse --show-toplevel)
+CUR_DIR=$(pwd -P)
+RELATIVE=${CUR_DIR##"$TOP_LEVEL"}
+
+GIT_HASH=$(git show --date local --no-patch --no-notes --pretty='%cs_%h' HEAD)
+
+ADOC_OPTS=(--verbose --failure-level=WARN "--attribute=gitrev=${GIT_HASH}" --out-file pah-sso.pdf)
+
+podman run --rm --name asciidoctor \
+  --userns=keep-id \
+  --user="$(id -u):$(id -g)" \
+  -v "${TOP_LEVEL}/:/documents:Z" \
+  -w "/documents${RELATIVE}" \
+  ${IMAGE} \
+  asciidoctor-pdf "${ADOC_OPTS[@]}" README.adoc

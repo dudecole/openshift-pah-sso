@@ -1,0 +1,17 @@
+kind: KeycloakRealm
+apiVersion: keycloak.org/v1alpha1
+metadata:
+  name: ansible-automation-platform-keycloakrealm
+  namespace: rh-sso
+  labels:
+    app: sso
+    realm: ansible-automation-platform
+spec:
+  realm:
+    id: ansible-automation-platform
+    realm: ansible-automation-platform
+    enabled: true
+    displayName: Ansible Automation Platform
+  instanceSelector:
+    matchLabels:
+      app: sso

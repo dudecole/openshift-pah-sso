@@ -1,0 +1,25 @@
+// --------------------------------
+// Document/Brand Configuration
+// Do Not Change
+// --------------------------------
+:listing-caption: Listing
+:toc: macro
+:toclevels: 4
+:sectnumlevels: 6
+:numbered:
+:chapter-label:
+:icons: font
+:pdf-page-size: Letter
+:pdf-style: redhat
+:pdf-stylesdir: styles/pdf/
+:pdf-fontsdir: fonts/
+:imagesdir: images/
+
+ifdef::backend-pdf[]
+:pygments-style: tango
+:source-highlighter: rouge
+:rouge-style: github
+:autofit-option:
+endif::[]
+
+:experimental: true

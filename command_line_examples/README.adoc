@@ -1,0 +1,241 @@
+= Command line example for integrating PAH with RH-SSO
+
+This example performs the following:
+
+* Creates a namespace for RH-SSO and a subscription for the operator
+* Configures RH-SSO for use by PAH
+* Creates a user in RH-SSO that can login to PAH (as an admin)
+* Creates a namespace for PAH and a subscription for the operator
+* Configures PAH to use RH-SSO for authentication
+
+[NOTE]
+====
+This example uses the Manual update approval method for the operators.
+If the Automatic update approval method is used the steps to approve the install plan can be skipped.
+====
+
+== Install the RH-SSO Operator
+
+. Create Red Hat Single Sign-On Namespace.
++
+[source,bash]
+----
+oc apply -f 01_rh-sso_create_namespace.yaml
+----
+
+. Create an Operator Group for the namespace.
++
+[source,bash]
+----
+oc create -f 02_rh-sso_operatorgroup.yaml
+----
+
+. Create the subscription.
++
+[source,bash]
+----
+oc apply -f 03_rh-sso_subscription.yaml
+----
+
+. Approve the install plan for the subscription.
++
+[source,bash]
+----
+INSTALLPLANNAME=$(oc get subscription rhsso-operator -n rh-sso -o jsonpath='{.status.installplan.name}')
+
+oc patch installplan ${INSTALLPLANNAME} \
+    --namespace rh-sso \
+    --type merge \
+    --patch '{"spec":{"approved":true}}'
+----
+
+. Wait until the operator install completes.
+When complete the state will be *AtLatestKnown*.
++
+[source,bash]
+----
+oc get subscription rhsso-operator -n rh-sso -o jsonpath='{.status.state}{"\n"}'
+----
+
+== Create Keycloak instance and Master realm.
+
+. Create the Keycloak
++
+[source,bash]
+----
+oc apply -f 04_rh-sso_keycloak.yaml
+----
+
+. Wait for the instance to be created.
+When complete the phase will be *reconciling* and ready will be *true*.
++
+[source,bash]
+----
+oc get keycloak -n rh-sso -o jsonpath='{range .items[*]}{.metadata.name}{" : "}{.status.phase}{", "}{.status.ready}{"\n"}{end}'
+----
+
+== Create Keycloak realm for AAP
+
+. Create the Keycloak realm.
++
+[source,bash]
+----
+oc apply -f 05_rh-sso_keycloak_realm_aap.yaml
+----
+
+. Wait for the realm to be created.
+When complete the phase will be *reconciling* and ready will be *true*.
++
+[source,bash]
+----
+oc get keycloakrealm -n rh-sso -o jsonpath='{range .items[*]}{.metadata.name}{" : "}{.status.phase}{", "}{.status.ready}{"\n"}{end}'
+----
+
+== Create client for Automation Hub
+
+. Create the Keycloak client.
++
+[source,bash]
+----
+oc apply -f 06_rh-sso_keycloak_client_pah.yaml
+----
+
+. Wait for the client to be created.
+When complete the phase will be *reconciling* and ready will be *true*.
++
+[source,bash]
+----
+oc get keycloakclient -n rh-sso -o jsonpath='{range .items[*]}{.metadata.name}{" : "}{.status.phase}{", "}{.status.ready}{"\n"}{end}'
+----
+
+== Create a User
+
+. Create a Keycloak user.
++
+[source,bash]
+----
+oc apply -f 07_rh-sso_keycloak_user.yaml
+----
+
+. Wait for the user to be created.
+When complete the phase will be *reconciled*.
++
+[source,bash]
+----
+oc get keycloakuser -n rh-sso -o jsonpath='{range .items[*]}{.metadata.name}{" : "}{.status.phase}{"\n"}{end}'
+----
+
+== Install AAP Operator
+
+. Create Ansible Automation Platform Namespace.
++
+[source,bash]
+----
+oc apply -f 08_aap_create_namespace.yaml
+----
+
+. Create an Operator Group for the namespace.
++
+[source,bash]
+----
+oc apply -f 09_aap_operatorgroup.yaml
+----
+
+. Create the subscription.
++
+[source,bash]
+----
+oc apply -f 10_aap_subscription.yaml
+----
+
+. Approve the install plan for the subscription.
++
+[source,bash]
+----
+INSTALLPLANNAME=$(oc get subscription ansible-automation-platform-operator -n ansible-automation-platform -o jsonpath='{.status.installplan.name}')
+
+oc patch installplan ${INSTALLPLANNAME} \
+    --namespace ansible-automation-platform \
+    --type merge \
+    --patch '{"spec":{"approved":true}}'
+----
+
+. Wait until the operator install completes.
+When complete the state will be *AtLatestKnown*.
++
+[source,bash]
+----
+oc get subscription ansible-automation-platform-operator -n ansible-automation-platform -o jsonpath='{.status.state}{"\n"}'
+----
+
+== Create a Secret to hold the RH-SSO connection details
+
+. Retreive the RH-SSO Public Key for the AAP realm.
++
+[source,bash]
+----
+SSOHOST=$(oc get routes -n rh-sso keycloak -o jsonpath='{.spec.host}{"\n"}')
+
+SSOPUBLICKEY=$(curl -k -s https://${SSOHOST}/auth/realms/ansible-automation-platform |jq -r '.public_key')
+----
+
+. Create the secret.
++
+[source,bash]
+----
+sed -r "s~SSO_REALM_PUBLIC_KEY~${SSOPUBLICKEY}~; s~KEYCLOAK_HOST~${SSOHOST}~" 11_aap_sso_secret.yaml |oc apply -f -
+----
+
+== Install Automation Hub via the Operator
+
+. Create the Automation Hub instance.
++
+[source,bash]
+----
+oc apply -f 12_aap_automation_hub.yaml
+----
+
+. Wait for the route to be created.
+When complete the output will not contain an error message or have a blank line.
++
+[source,bash]
+----
+PAH=$(oc get route private-ah -n ansible-automation-platform -o jsonpath='{.spec.host}{"\n"}'); echo ${PAH}
+----
+
+. Wait for the Automation Hub install to complete.
+When complete the status will be *200*. 
++
+[source,bash]
+----
+curl -ILks -o /dev/null -w "%{http_code}\n" https://${PAH}
+----
+
+== Update the RH-SSO client
+
+. Add the redirect uri and web origin to the Keycloak client.
++
+[source,bash]
+----
+oc patch keycloakclient automation-hub-client-secret \
+    --namespace rh-sso \
+    --type merge \
+    --patch "{\"spec\":{\"client\":{\"redirectUris\":[\"https://${PAH}/*\"],\"webOrigins\":[\"https://${PAH}\"]}}}"
+----
+
+[Appendix]
+== Useful commands
+
+* Find available operators
++
+[source,bash]
+----
+oc get packagemanifests -n openshift-marketplace
+----
+
+* Find available channels for an operator subscription
++
+[source,bash]
+----
+oc get packagemanifests <OPERATOR NAME> -n openshift-marketplace -o jsonpath='{range .status.channels[*]}{.name}{"\n"}{end}'
+----

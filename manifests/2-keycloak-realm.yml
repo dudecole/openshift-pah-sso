@@ -1,0 +1,22 @@
+#1 - Set a unique value for the name of the configuration resource (CR)
+#2 - Set to a unique value. This will be used when creating the client CR
+#3 - Set the realm name and id. For ease these should be the same
+#4 - Set the name to display
+
+kind: KeycloakRealm
+apiVersion: keycloak.org/v1alpha1
+metadata:
+  name: ansible-automation-platform-keycloakrealm   #(1)
+  namespace: rh-sso
+  labels:
+    app: sso                                        #(2)
+    realm: ansible-automation-platform              #(2)
+spec:
+  realm:
+    id: ansible-automation-platform                 #(3)
+    realm: ansible-automation-platform              #(3)
+    enabled: true
+    displayName: Ansible Automation Platform        #(4)
+  instanceSelector:
+    matchLabels:
+      app: sso
