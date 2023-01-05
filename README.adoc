@@ -36,28 +36,28 @@ image::images/rh-sso/find_operator.png[]
 
 . Click btn:[Install]
 +
-image::rh-sso/operator_install_button.png[]
+image::images/rh-sso/operator_install_button.png[]
 
 . Select a Project to install the Operator into
 +
-image::rh-sso/operator_project_selection.png[]
+image::images/rh-sso/operator_project_selection.png[]
 +
 [NOTE]
 ====
 If the installation should occur in a new project select *Create Project* from the drop-down and then enter the project name in the popup dialog box and click btn:[Create].
 
-image::rh-sso/project_creation.png[]
+image::images/rh-sso/project_creation.png[]
 ====
 
 . Click btn:[Install]
 +
-image::rh-sso/operator_complete_install.png[]
+image::images/rh-sso/operator_complete_install.png[]
 
 . Wait for Operator install to complete
 
 . Once the Operator has installed click btn:[View Operator]
 +
-image::rh-sso/operator_installed.png[]
+image::images/rh-sso/operator_installed.png[]
 
 == Create Keycloak instance and Master Realm
 
@@ -65,23 +65,23 @@ image::rh-sso/operator_installed.png[]
 
 .. Navigate to menu:Operators[Installed Operators]
 +
-image::aap/installed_operators.png[]
+image::images/aap/installed_operators.png[]
 
 .. Select the RH-SSO project
 +
-image::rh-sso/select_project.png[]
+image::images/rh-sso/select_project.png[]
 
 .. Click on Red Hat Single Sign-On Operator
 +
-image::rh-sso/rh-sso_operator.png[]
+image::images/rh-sso/rh-sso_operator.png[]
 
 . On the RH-SSO Operator *Details* page click btn:[Create Instance] on the *Keycloak* tile
 +
-image::rh-sso/keycloak_instance.png[]
+image::images/rh-sso/keycloak_instance.png[]
 
 . Click btn:[YAML view]
 +
-image::rh-sso/keycloak_instance_yaml_view.png[]
+image::images/rh-sso/keycloak_instance_yaml_view.png[]
 
 . The YAML should be look like:
 +
@@ -108,11 +108,11 @@ There are other options that may need to be set.
 
 . Click btn:[Create]
 +
-image::rh-sso/keycloak_instance_create.png[]
+image::images/rh-sso/keycloak_instance_create.png[]
 
 . Wait for Keycloak Instance creation to complete
 +
-image::rh-sso/keycloak_instance_completed.png[]
+image::images/rh-sso/keycloak_instance_completed.png[]
 +
 [NOTE]
 ====
@@ -128,27 +128,27 @@ It is recommended that changes be made by updating the Custom Resource.
 
 .. Navigate to menu:Operators[Installed Operators]
 +
-image::aap/installed_operators.png[]
+image::images/aap/installed_operators.png[]
 
 .. Select the RH-SSO project
 +
-image::rh-sso/select_project.png[]
+image::images/rh-sso/select_project.png[]
 
 .. Click on Red Hat Single Sign-On Operator
 +
-image::rh-sso/rh-sso_operator.png[]
+image::images/rh-sso/rh-sso_operator.png[]
 
 . Click on *KeycloakRealm*
 +
-image::rh-sso/keycloak_realm_listing.png[]
+image::images/rh-sso/keycloak_realm_listing.png[]
 
 . Click btn:[Create KeycloakRealm]
 +
-image::rh-sso/keycloak_realm_create_button.png[]
+image::images/rh-sso/keycloak_realm_create_button.png[]
 
 . If not already selected click btn:[YAML view]
 +
-image::rh-sso/keycloak_realm_yaml_view.png[]
+image::images/rh-sso/keycloak_realm_yaml_view.png[]
 
 . Modify the YAML as shown below
 +
@@ -179,11 +179,11 @@ spec:
 
 . Click btn:[Create] to create the realm
 +
-image::rh-sso/keycloak_realm_create_realm.png[]
+image::images/rh-sso/keycloak_realm_create_realm.png[]
 
 . Wait for the realm creation to complete
 +
-image::rh-sso/keycloak_realm_created.png[]
+image::images/rh-sso/keycloak_realm_created.png[]
 
 == Create client for Automation Hub
 
@@ -191,27 +191,27 @@ image::rh-sso/keycloak_realm_created.png[]
 
 .. Navigate to menu:Operators[Installed Operators]
 +
-image::aap/installed_operators.png[]
+image::images/aap/installed_operators.png[]
 
 .. Select the RH-SSO project
 +
-image::rh-sso/select_project.png[]
+image::images/rh-sso/select_project.png[]
 
 .. Click on Red Hat Single Sign-On Operator
 +
-image::rh-sso/rh-sso_operator.png[]
+image::images/rh-sso/rh-sso_operator.png[]
 
 . Click on *KeycloakClient*
 +
-image::rh-sso/keycloak_client_listing.png[]
+image::images/rh-sso/keycloak_client_listing.png[]
 
 . Click btn:[Create KeycloakClient]
 +
-image::rh-sso/keycloak_client_create_button.png[]
+image::images/rh-sso/keycloak_client_create_button.png[]
 
 . If not already selected click btn[YAML view]
 +
-image::rh-sso/keycloak_client_yaml_view.png[]
+image::images/rh-sso/keycloak_client_yaml_view.png[]
 
 [#keycloakclient-yaml]
 . Replace the default YAML with the YAML below
@@ -342,11 +342,11 @@ spec:
 
 . Click btn:[Create] to create the client
 +
-image::rh-sso/keycloak_client_create_client.png[]
+image::images/rh-sso/keycloak_client_create_client.png[]
 
 . Wait for the realm creation to complete
 +
-image::rh-sso/keycloak_realm_created.png[]
+image::images/rh-sso/keycloak_realm_created.png[]
 
 == Create a User
 
@@ -357,27 +357,27 @@ The user will have Super Admin privileges when logged in due to the hubadmin rol
 
 .. Navigate to menu:Operators[Installed Operators]
 +
-image::aap/installed_operators.png[]
+image::images/aap/installed_operators.png[]
 
 .. Select the RH-SSO project
 +
-image::rh-sso/select_project.png[]
+image::images/rh-sso/select_project.png[]
 
 .. Click on Red Hat Single Sign-On Operator
 +
-image::rh-sso/rh-sso_operator.png[]
+image::images/rh-sso/rh-sso_operator.png[]
 
 . Click on *KeycloakUser*
 +
-image::rh-sso/keycloak_user.png[]
+image::images/rh-sso/keycloak_user.png[]
 
 . Click btn:[Create KeycloakUser]
 +
-image::rh-sso/keycloak_user_create.png[]
+image::images/rh-sso/keycloak_user_create.png[]
 
 . If not already selected click btn[YAML view]
 +
-image::rh-sso/keycloak_user_yaml.png[]
+image::images/rh-sso/keycloak_user_yaml.png[]
 
 . Replace the default YAML with the YAML below
 +
@@ -420,7 +420,7 @@ Once a user is created the operator will not update the users password and passw
 
 . Click btn:[Create]
 +
-image::rh-sso/keycloak_user_create_button.png[]
+image::images/rh-sso/keycloak_user_create_button.png[]
 
 
 == Install Ansible Automation Platform Operator
@@ -429,60 +429,60 @@ image::rh-sso/keycloak_user_create_button.png[]
 
 . Navigate to the menu:Operators[Operator Hub]
 +
-image::operator_hub.png[]
+image::images/operator_hub.png[]
 
 . Search for the Ansible Automation Platform Operator and click on the Operator tile
 +
-image::aap/find_operator.png[]
+image::images/aap/find_operator.png[]
 
 . Click btn:[Install]
 +
-image::aap/operator_install_button.png[]
+image::images/aap/operator_install_button.png[]
 
 . Select a Namespace (Project) to install the Operator into.
 It is recommended to use the `Operator recommended Namespace` name.
 +
-image::aap/operator_project_selection.png[]
+image::images/aap/operator_project_selection.png[]
 +
 [NOTE]
 ====
 If the installation should occur in a namespace other than the recommended one, click btn:[Select a Namespace].
 Then select an existing project or to create a new project select *Create Project* from the drop-down and then enter the project name in the popup dialog box and click btn:[Create].
 
-image::aap/project_creation.png[]
+image::images/aap/project_creation.png[]
 ====
 
 . Click btn:[Install]
 +
-image::aap/operator_complete_install.png[]
+image::images/aap/operator_complete_install.png[]
 
 . Wait for Operator install to complete
 
 . Once the Operator has installed click btn:[View Operator]
 +
-image::aap/operator_installed.png[]
+image::images/aap/operator_installed.png[]
 
 == Create a Secret to hold the RH-SSO connection details
 
 . [[sso_public_key]]Retreive the RH-SSO Public Key for the AAP realm
 .. Browse to https://<sso_host>/auth/realms/ansible-automation-platform
 +
-image::aap/keycloak_public_key.png[]
+image::images/aap/keycloak_public_key.png[]
 
 .. Copy/Save the `public_key` value for use below
 
 . Create Secret to hold the SSO details
 .. In the OpenShift Web UI browse to menu:Workloads[Secrets]
 +
-image::aap/ocp_secret_menu.png[]
+image::images/aap/ocp_secret_menu.png[]
 
 .. Select menu:Project[ansible-automation-platform]
 +
-image::aap/ocp_secret_project.png[]
+image::images/aap/ocp_secret_project.png[]
 
 .. Click menu:Create[From YAML]
 +
-image::aap/ocp_secret_create_yaml.png[]
+image::images/aap/ocp_secret_create_yaml.png[]
 
 .. Use the YAML below to create the secret
 +
@@ -512,29 +512,29 @@ stringData:
 
 .. Click btn:[Create]
 +
-image::aap/ocp_secret_create.png[]
+image::images/aap/ocp_secret_create.png[]
 
 == Install Automation Hub via the Operator
 
 . Navigate to menu:Operators[Installed Operators]
 +
-image::aap/installed_operators.png[]
+image::images/aap/installed_operators.png[]
 
 . Click on the Ansible Automation Platform
 +
-image::aap/aap_operator.png[]
+image::images/aap/aap_operator.png[]
 
 . Select Automation Hub
 +
-image::aap/aap_operator_hub.png[]
+image::images/aap/aap_operator_hub.png[]
 
 . Click btn:[Create AutomationHub]
 +
-image::aap/hub_create_instance.png[]
+image::images/aap/hub_create_instance.png[]
 
 . Click btn:[YAML view]
 +
-image::aap/hub_instance_yaml_view.png[]
+image::images/aap/hub_instance_yaml_view.png[]
 
 . The YAML should be look like:
 +
@@ -592,11 +592,11 @@ If not using self-signed certificates for OpenShift this setting can be removed.
 
 . Click btn:[Create]
 +
-image::aap/hub_instance_create.png[]
+image::images/aap/hub_instance_create.png[]
 
 . Wait for the instance creation to complete
 +
-image::aap/hub_instance_created.png[]
+image::images/aap/hub_instance_created.png[]
 
 [#hub_route]
 == Determine Automation Hub Route
@@ -612,7 +612,7 @@ The name of the service (private-ah-web-svc) will be different if you used a dif
 +
 This will be used later to update the RH-SSO client.
 +
-image::aap/hub_location.png[]
+image::images/aap/hub_location.png[]
 
 == Update the RH-SSO client
 
@@ -620,27 +620,27 @@ Now that Automation Hub has been installed and we know the URL to for the instan
 
 . Navigate to menu:Operators[Installed Operators]
 +
-image::aap/installed_operators.png[]
+image::images/aap/installed_operators.png[]
 
 . Select the RH-SSO project
 +
-image::rh-sso/select_project.png[]
+image::images/rh-sso/select_project.png[]
 
 . Click on Red Hat Single Sign-On Operator
 +
-image::rh-sso/rh-sso_operator.png[]
+image::images/rh-sso/rh-sso_operator.png[]
 
 . Select KeycloakClient
 +
-image::rh-sso/keycloak_client_listing.png[]
+image::images/rh-sso/keycloak_client_listing.png[]
 
 . Click on the automation-hub-client-secret client
 +
-image::rh-sso/keycloak_client_ah.png[]
+image::images/rh-sso/keycloak_client_ah.png[]
 
 . Select YAML
 +
-image::rh-sso/keycloak_client_ah_yaml.png[]
+image::images/rh-sso/keycloak_client_ah_yaml.png[]
 
 . Update the Client YAML to add the Valid Redirect URIs and Web Origins settings.
 +
@@ -659,22 +659,22 @@ Be sure to add the `/*` to the end of the `redirectUris` setting.
 Ensure the indentation is correct when entering these settings.
 ====
 +
-image::rh-sso/keycloak_client_ah_update_yaml.png[]
+image::images/rh-sso/keycloak_client_ah_update_yaml.png[]
 
 . Click btn:[Save]
 +
-image::rh-sso/keycloak_client_ah_update_yaml_save.png[]
+image::images/rh-sso/keycloak_client_ah_update_yaml_save.png[]
 
 == Verify Connectivy and Redirection
 
 . Browse to the Automation Hub route. The browser should automatically redirect to the RH-SSO login page
 +
-image::aap/redirected_login.png[]
+image::images/aap/redirected_login.png[]
 
 . Enter the `hub_admin` user credentials and click btn:[Sign in]
 +
-image::aap/login_credentials.png[]
+image::images/aap/login_credentials.png[]
 
 . RH-SSO will process the authentication and redirect back to Automation Hub as the now logged in user.
 +
-image::aap/user_logged_in.png[]
+image::images/aap/user_logged_in.png[]
